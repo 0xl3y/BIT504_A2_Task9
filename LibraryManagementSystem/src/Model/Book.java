@@ -21,7 +21,7 @@ public class Book {
 		this.ageRating = ageRating;
 	}
 	
-	public String getid() {
+	public String getId() {
 		return id;
 	}
 	
@@ -59,6 +59,10 @@ public class Book {
 	
 	public boolean isBorrowed() {
 		return borrowedByMemberId != null;
+	}
+	
+	public static String getHeader() {
+		return String.format("%-5s %-10s %-30s %-20s %-12s %-12s %-3s %-10s", "ID", "ISBN", "Title", "Author", "Pub Date", "Genre", "Age", "Status");
 	}
 	
 	public String toString() {

@@ -11,7 +11,7 @@ public class Library {
 		FileLoader loader = FileLoader.getInstance();
 		
 		List<Member> members = loader.loadMembers("members.txt");
-		List<Book> book = loader.loadBooks("books.txt");
+		List<Book> books = loader.loadBooks("books.txt");
 		
 		System.out.println("Loaded Members:");
 		for (Member m : members) {
@@ -19,7 +19,7 @@ public class Library {
 		}
 		
 		System.out.println("\nLoadedBooks:");
-		for (Book b: book) {
+		for (Book b: books) {
 			System.out.println(b);
 		}
 		
