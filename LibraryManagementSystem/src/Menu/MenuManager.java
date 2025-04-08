@@ -144,6 +144,85 @@ public class MenuManager {
         	System.out.println("Member Added Successfully");
 		}
 		
+		private void checkOutBook() {
+			System.out.println("\n--- Check Out a Book ---");
+			System.out.print("Enter Book ID: ");
+			String bookId = scanner.nextLine().trim();
+			
+			Book book = findBookById(bookId);
+			if (book == null) {
+				System.out.println("Book not found");
+				return;
+			}
+			
+			if (!book.isAvailable()) {
+				System.out.println("This book is already borrowed.");
+				return;
+			}
+			
+			System.out.print("Enter Member ID: ");
+			String memberId = scanner.nextLine().trim();
+			Member member = findMemberById(memberId);
+			if (member == null) {
+				System.out.println("Member not found.");
+				return;
+			}
+			
+			if (book.getAgeRating() > member.getAge()) {
+				System.out.println("Sorry, you are not old enough to borrow this book.");
+				return;
+			}
+			
+			System.out.println("Book: " + book.getTitle());
+			System.out.print("Do you want to borrow this book? (yes/no): ");
+			String confirmation = scanner.nextLine().trim().toLowerCase();
+			
+			if (confirmation.equals("yes")) {
+				book.setBorrowedByMemberId(memberId);
+				System.out.println("Book successfully borrowed.");
+			} else {
+				System.out.println("Book borrowing cancelled");
+			}
+		}
+		
+		private Book findBookById(String bookId) {
+			for (Book book : books) {
+				if (book.getId().equals(bookId)) {
+					return book;
+				}
+			}
+			return null;
+		}
+			
+			private Member findMemberById(String memberId) {
+				for (Member member : members) {
+					if (member.getId().equals(memberId)) {
+						return member;
+					}
+				}
+				return null;
+		}
+			
+		private void checkInBook() {
+			System.out.println("\n---Check In a Book ---");
+			System.out.println("Enter Book ID to return: ");
+			String bookId = scanner.nextLine().trim();
+			
+			Book book = findBookById(bookId);
+			if (book == null) {
+				System.out.println("Book not found.");
+				return;
+			}
+			
+			if (book.isAvailable()) {
+				System.out.println("This book was not borrowed.");
+				return;
+			}
+			
+			book.setBorrowedByMemberId(null);
+			System.out.println("Book successfully returned");	
+		}
+		
 		public MenuManager(List<Book> books, List<Member> members) {
 			this.books = books;
 			this.members = members;
@@ -259,10 +338,10 @@ public class MenuManager {
 
             switch (choice) {
                 case "a":
-                    // checkOutBook();
+                    checkOutBook();
                     break;
                 case "b":
-                    // checkInBook();
+                   checkInBook();
                     break;
                 case "c":
                     System.out.println("Returning to main menu...");

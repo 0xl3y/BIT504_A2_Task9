@@ -8,7 +8,7 @@ public class Book {
 	private String publicationDate;
 	private String genre;
 	private int ageRating;
-	private String borrowedByMemberId = null;
+	private String borrowedByMemberId;
 	
 	
 	public Book(String id, String isbn, String title, String author, String publicationDate, String genre, int ageRating) {
@@ -57,8 +57,12 @@ public class Book {
 		this.borrowedByMemberId = memberId;
 	}
 	
+	public boolean isAvailable() {
+		return borrowedByMemberId == null || borrowedByMemberId.isEmpty();
+	}
+	
 	public boolean isBorrowed() {
-		return borrowedByMemberId != null;
+		return !isAvailable();
 	}
 	
 	public static String getHeader() {
