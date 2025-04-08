@@ -33,6 +33,10 @@ public class Member {
 		return firstName + " " + lastName;
 	}
 	
+	public static String getHeader() {
+		return String.format("%-5s %-12s %-12s %-3s", "ID", "First name", "Last Name", "Age");
+	}
+	
 	@Override
 	public String toString() {
 		return String.format ("%-5s %-12s %-12s %-3d", id, firstName, lastName, age);	
