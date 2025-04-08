@@ -8,12 +8,12 @@ import Model.Member;
 import java.util.List;
 
 public class Main {
-	public static void main(String[] args) {
-		FileLoader loader = FileLoader.getInstance();
-		List<Book> books = loader.loadBooks("books.txt");
-		List<Member> members = loader.loadMembers("members.txt");
-		
-		MenuManager menuManager = new MenuManager(books, members);
-		menuManager.showMainMenu();
-	}
+    public static void main(String[] args) {
+        FileLoader loader = FileLoader.getInstance();
+        List<Book> books = loader.loadBooks("src/Books.txt");
+        List<Member> members = loader.loadMembers("src/Members.txt");
+
+        MenuManager menuManager = new MenuManager(books, members);
+        menuManager.showMainMenu();
+    }
 }
