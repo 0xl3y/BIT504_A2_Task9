@@ -223,6 +223,77 @@ public class MenuManager {
 			System.out.println("Book successfully returned");	
 		}
 		
+		
+		private void findMember() {
+			System.out.print("Enter last name to search: ");
+			String search = scanner.nextLine().trim().toLowerCase();
+			boolean found = false;
+			
+			for (Member m : members) {
+				if (m.getLastName().toLowerCase().contains(search) ) {
+					found = true;
+					System.out.println("\n--- Member Found ---");
+					System.out.println("ID: " + m.getId());
+					System.out.println("ID: " + m.getId());
+					System.out.println("Name: " + m.getFirstName() + " " + m.getLastName());
+					System.out.println("Age: " + m.getAge());
+					
+					boolean hasBorrowed = false;
+					for (Book b : books) {
+						if (m.getId().equals(b.getBorrowedByMemberId())) {
+							if (!hasBorrowed) {
+								System.out.println("Borrowed Books:");
+								hasBorrowed = true;
+							}
+							System.out.println("- " + b.getTitle());
+						}
+					}
+					if (!hasBorrowed) {
+						System.out.println("Borrowed Books: None");
+					}
+				}
+			}
+		
+			if (!found) {
+				System.out.println("No members found with last name containing: " + search);
+			}
+		}
+		
+		private void findBook() {
+			System.out.print("Enter book title to search: ");
+			String search = scanner.nextLine().trim().toLowerCase();
+			boolean found = false;
+			
+			for (Book b : books) {
+				if (b.getTitle().toLowerCase().contains(search)) {
+					found = true;
+					System.out.println("\n--- Book Found ---");
+					System.out.println("ID: " + b.getId());
+					System.out.println("ISBN: " + b.getIsbn());
+					System.out.println("Title: " + b.getTitle());
+					System.out.println("Author: " + b.getAuthor());
+					System.out.println("Publication Date: " + b.getPublicationDate());
+					System.out.println("Genre: " + b.getGenre());
+					System.out.println("Age Rating: " + b.getAgeRating());
+					
+					if (b.isBorrowed()) {
+						String memberId = b.getBorrowedByMemberId();
+						Member borrower = findMemberById(memberId);
+						String borrowerName = borrower != null
+								? borrower.getFirstName() + " " + borrower.getLastName() : "Unknown";
+						System.out.println("Borrowed by: " + borrowerName);
+					} else {
+						System.out.println("Status: Available");
+					}
+				}
+				if (!found) {
+					System.out.println("No books found with title containing: " + search);
+				}
+			}
+		}
+		
+		
+		
 		public MenuManager(List<Book> books, List<Member> members) {
 			this.books = books;
 			this.members = members;
@@ -365,10 +436,10 @@ public class MenuManager {
 
             switch (choice) {
                 case "a":
-                    // findMember();
+                    findMember();
                     break;
                 case "b":
-                    // findBook();
+                    findBook();
                     break;
                 case "c":
                     System.out.println("Returning to main menu...");
